@@ -4,10 +4,10 @@ section .text
 _start:
                 mov ecx,[c]
                 mov edx,[d]
-                mul edx,
+                mul edx
                 mov eax,[a]
                 mov ebx,[b]
-                mul ebx,
+                mul ebx
                 add eax,ecx
                 mov [x],eax
 
