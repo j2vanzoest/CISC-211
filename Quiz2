@@ -1,0 +1,23 @@
+section .text
+                global _start
+
+_start:
+                mov ecx,[c]
+                mov edx,[d]
+                mul edx,
+                mov eax,[a]
+                mov ebx,[b]
+                mul ebx,
+                add eax,ecx
+                mov [x],eax
+
+                mov eax,1
+                int 0x80
+
+section .data
+                a DD 2;
+                b DD 3;
+                c DD 4;
+                d DD 5;
+segment .bss
+                x resb 1
