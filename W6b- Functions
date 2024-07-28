@@ -1,0 +1,40 @@
+section .text
+   global _start
+
+_start:      
+        mov eax,[var1]
+        and eax,1
+        jz _even
+
+_odd:
+        call _oddwrite
+        call exit
+_oddwrite:
+   mov  eax,4
+   mov  ebx,1
+   mov  ecx,odd
+   mov  edx,length
+   int  0x80 
+        ret
+_even:
+        call _evenwrite
+        call exit
+_evenwrite:
+   mov  eax,4
+   mov  ebx,1 
+   mov  ecx,even
+   mov  edx,len
+   int  0x80
+        ret
+exit: 
+        mov eax,1
+        int 0x80
+
+section .data
+even db 'Even!', 0xa 
+len equ $ - even 
+
+odd db 'Odd!', 0xa 
+length equ $ - odd    
+
+        var1 DD 4;
