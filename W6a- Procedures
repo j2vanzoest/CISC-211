@@ -1,0 +1,39 @@
+section .text
+        global _start
+
+_start:
+        mov eax,65
+        mov [res],eax
+        mov ecx,res
+
+_loop:
+        call _write
+        call _line
+        mov eax, [res]
+        inc eax
+        mov [res],eax
+        mov ecx,res
+        cmp eax, 90
+        jne _loop 
+
+        mov eax,1
+        int 0x80
+_write:
+        mov edx,1       ;output length
+        mov ebx,1       ;stdout
+        mov eax,4
+        int 0x80        ;interrupt kernel
+        ret
+_line: 
+        mov edx,1       ;output length
+        mov ebx,1       ;stdout
+        mov eax,4
+        mov ecx,newline
+        int 0x80        ;interrupt kernel
+        ret
+
+section .data
+        newline dd 10
+
+segment .bss
+        res resb 1
