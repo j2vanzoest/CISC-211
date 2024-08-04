@@ -1,0 +1,57 @@
+section .text
+        global  _start
+ 
+_start:
+ ; open file
+        mov eax, 5 
+        mov ebx, filename
+        mov edx, 0777o
+        int 0x80
+
+        mov [fd_out],eax
+
+  ;write 
+        mov eax, 4  
+        mov ecx, contents
+        mov ebx, [fd_out]
+        mov edx, len  
+        int 0x80
+
+  ;close 
+        mov eax, 6 
+        mov ebx, [fd_out]
+        int 0x80
+
+   ;open
+        mov eax, 5 
+        mov ebx, filename
+        mov edx, 0777o
+        int 0x80
+
+        mov [fd_out],eax
+
+    ;write 
+        mov eax, 4 
+        mov ecx, content1
+        mov ebx, [fd_out]
+        mov edx, len1   
+        int 0x80
+
+    ;close
+        mov eax, 6  
+        mov ebx, [fd_out]
+        int 0x80
+
+        mov eax, 1
+        int 0x80
+
+section .bss
+        fd_out resb 1
+        fd_in  resb 1
+        info resb  26
+section .data
+        filename db 'quotes.txt', 0h
+        contents db 'To be, or not to be, that is the question.', 0h
+        len equ  $-contents
+        content1 db 'A fool thinks himself to be wise, but a wise man knows himself to be a fool.',0h
+        len1 equ  $-content1
