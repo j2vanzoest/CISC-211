@@ -1,1 +1,34 @@
-hello
+;Assign three integers to the variables x, y, and z and pass on the function name of your 
+;choice. The function task is to add three variables and assign the result to the 'result' 
+;variable. Ensure the function returns the result variable and deallocates the me,mory used by
+; the function when it returns.
+section .text
+        global _start
+_start:
+        mov eax, [x]
+        mov ebx, [y]
+        mov ecx, [z]
+        call _add
+        call _write
+        call exit
+_add: 
+        add eax,ebx
+        add ecx,eax
+        mov [result],ecx
+_write:
+        mov edx,1    
+        mov ebx,1 
+        mov eax,4  
+        int 0x80    
+        ret
+exit:
+        mov eax,1
+        int 0x80
+
+section .data
+        x DD 4;
+        y DD 3;
+        z DD 2;
+
+segment .bss
+    result resb 1
